@@ -10,5 +10,5 @@ Welcome to Space Debris! Here you will get to test your grit in the cockpit of a
 Mark Meta\
 Tyrek Blanks\
 Andrew Vazzano\
-Marcus Snell\
+Marcus Snell
 
