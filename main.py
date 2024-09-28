@@ -48,7 +48,7 @@ class App:
     def on_cleanup(self):
         pygame.quit()
  
- 
+
     # The excute block which runs the loop reners an cleanup
     def on_execute(self):
         if self.on_init() == False:
