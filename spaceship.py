@@ -15,8 +15,9 @@ class Spaceship(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
 
-        self.thrust = 0.1  # thrust increment per frame
-        self.max_speed = 5
+        self.thrust = 0.05  # thrust increment per frame
+        self.drag = 1.05
+        self.max_speed = 3
         self.speed = 0  # current speed
         self.rotation_speed = 3
         self.angle = 0
@@ -44,7 +45,7 @@ class Spaceship(pygame.sprite.Sprite):
             self.speed += self.thrust
             self.speed = min(self.speed, self.max_speed)
         else:
-            self.speed *= 0.95
+            self.speed /= self.drag
 
         rad_angle = math.radians(self.angle)
         self.rect.x -= math.sin(rad_angle) * self.speed
