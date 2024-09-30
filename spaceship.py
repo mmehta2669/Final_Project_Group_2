@@ -5,12 +5,15 @@ from pygame.locals import *
 
 
 class Spaceship(pygame.sprite.Sprite):
-    def __init__(self, image_path, x, y):
+    def __init__(self, image_path, x, y, screen_width, screen_height):
         super().__init__()  
         self.image = pygame.transform.scale(pygame.image.load(image_path), (30, 30))  
         self.original_image = self.image
         self.rect = self.image.get_rect()  
         self.rect.center = (x, y)
+
+        self.screen_width = screen_width
+        self.screen_height = screen_height
 
         self.thrust = 0.1  # thrust increment per frame
         self.max_speed = 5
@@ -42,13 +45,25 @@ class Spaceship(pygame.sprite.Sprite):
             self.speed = min(self.speed, self.max_speed)
         else:
             self.speed *= 0.95
-        
+
         rad_angle = math.radians(self.angle)
         self.rect.x -= math.sin(rad_angle) * self.speed
         self.rect.y -= math.cos(rad_angle) * self.speed
+
+        # Ensure the ship doesn't go offscreen
+        if self.rect.x < 0:
+            self.rect.x = 0
+        if self.rect.y < 0:
+            self.rect.y = 0
+    
+        if self.rect.x > self.screen_width:
+            self.rect.x = self.screen_width
+        if self.rect.y > self.screen_height:
+            self.rect.y = self.screen_height
 
         self.rotate()
 
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+

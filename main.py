@@ -20,7 +20,7 @@ class App:
     def on_init(self):
         pygame.init()
         self.screen = pygame.display.set_mode(self.size)
-        self.player = Spaceship('ship.png', 400, 300)
+        self.player = Spaceship('ship.png', 400, 300, screen_width=770, screen_height=570)
         self.rubble = Space_rubble('rock.png', 230, 100)
         self._running = True
  
