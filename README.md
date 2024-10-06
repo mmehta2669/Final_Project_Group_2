@@ -13,7 +13,7 @@
      
 ## How to Use
 
-To play the game, download the GitHub zip file or clone the repository.  Run the main.py file.  See **Game Controls** player movement and action.
+To play the game, download the GitHub zip file or clone the repository.  Run the main.py file.  See **Game Controls** for player movement and action.
 
 ## Game Controls
 - **Left Arrow:**  Rotate ship to the left
