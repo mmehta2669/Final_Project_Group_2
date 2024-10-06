@@ -21,21 +21,30 @@ class App:
         pygame.init()
         self.screen = pygame.display.set_mode(self.size)
         self.player = Spaceship('ship.png', 400, 300, screen_width=770, screen_height=570)
-        self.rubble = Space_rubble('rock.png', 230, 100)
+        self.add_rubble = pygame.USEREVENT + 1
+        pygame.time.set_timer(self.add_rubble, 1500)
+        self.rubble = pygame.sprite.Group()
+        self.all_items = pygame.sprite.Group()
+        self.all_items.add(self.player)
         self._running = True
- 
-
-    
+     
     # Basic Game Loop Functions
     def on_event(self, event):
         if event.type == pygame.QUIT:
             self._running = False
+        elif event.type == self.add_rubble:
+            self.new_rubble = Space_rubble()
+            self.rubble.add(self.new_rubble)
+            self.all_items.add(self.new_rubble)
+    
             
     def on_loop(self):
         self.player.update()
         self.rubble.update()
 
-        
+        for item in self.all_items:
+            self.screen.blit(item.image, item.rect)
+
         
     def on_render(self):
         # Clear the screen by filling it with the background
