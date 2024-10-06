@@ -33,6 +33,7 @@ spaceship : +setMemberPhone()
 title_screen
 
 space_rubble
+space_rubble : somevariable
 
 background
 
