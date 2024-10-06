@@ -68,6 +68,42 @@ classDiagram
  App o-- background : has-a
  spaceship o-- ammunition : has-a
 ```
+
+## Logical Flow of the Game Loop
+```mermaid
+---
+title: Game Loop Diagram
+---
+flowchart TD
+    classDef green stroke:#0f0
+    classDef red stroke:#f00
+    classDef blue stroke:#00f
+
+    A[Start] --> B["`Initialize Game:
+                    _______________________
+                     +Load Assets
+                     +Initialize Variables
+                     +Setup Display`"]
+    B --> C{Is Running?}:::blue
+
+    C --> |Yes| D["`Handle Events
+                   _______________________
+                    +Check for User Input`"]:::green
+    D --> E["`Update Game State: 
+             ____________________
+              +Move Spaceship
+              +Move Space Rubble
+              +Check Collisions`"]:::green
+    E --> F["`Render Frame:
+             ____________________
+              +Draw Background
+              +Draw Spaceship
+              +Draw Space Rubble`"]:::green
+    F --> C
+
+    C --> |No| G[Cleanup and Exit]:::red
+    G --> H[End]:::red
+```
      
 ## How to Use
 
