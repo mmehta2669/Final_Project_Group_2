@@ -64,6 +64,8 @@ classDiagram
 
  App o-- spaceship : has-a
  App o-- space_rubble : has-a
+ App o-- title_screen : has-a
+ App o-- background : has-a
  spaceship o-- ammunition : has-a
 ```
      
