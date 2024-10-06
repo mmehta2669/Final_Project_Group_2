@@ -30,19 +30,27 @@ classDiagram
 }
 
  class title_screen {
+  self
+  +__init__(self)
 
 }
 
  class space_rubble {
-
+  self
+  +__init__(self)
+  +update(self)
 }
 
 
  class background {
+  image_file : string
+  location : 
 
 }
 
  class ammunition {
+  self
+  +__init__(self)
 
 }
 
