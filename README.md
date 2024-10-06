@@ -18,8 +18,8 @@ title: Space Debris - Logical View
 classDiagram 
  direction LR
  class spaceship {
-  spaceship : image_path: string 
-  spaceship : +setMemberPhone()
+  image_path: string 
+  +setMemberPhone()
 }
 title_screen
 
