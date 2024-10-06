@@ -28,14 +28,23 @@ classDiagram
   +update(self)
   +draw(self, screen)
 }
-title_screen
 
-space_rubble
-space_rubble : somevariable
+ class title_screen {
 
-background
+}
 
-ammunition
+ class space_rubble {
+
+}
+
+
+ class background {
+
+}
+
+ class ammunition {
+
+}
 
 
 ```
