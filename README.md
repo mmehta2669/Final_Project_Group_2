@@ -10,6 +10,36 @@
       - Pickle
       - Random
       - Math
+## System Design
+```mermaid
+---
+title: Space Debris - Logical View
+---
+classDiagram
+direction LR
+spaceship
+spaceship : MemberId int
+spaceship : MemberName string
+spaceship : MemberAddress string
+spaceship : MemberPhone string
+spaceship : +getMemberId()
+spaceship : +getMemberName()
+spaceship : +setMemberName()
+spaceship : +getMemberAddress()
+spaceship : +setMemberAddress()
+spaceship : +getMemberPhone()
+spaceship : +setMemberPhone()
+
+title_screen
+
+space_rubble
+
+background
+
+ammunition
+
+
+```
      
 ## How to Use
 
@@ -20,14 +50,6 @@ To play the game, download the GitHub zip file or clone the repository.  Run the
 - **Right Arrow:** Rotate ship to the right
 - **Up Arrow:** Move ship forward across game screen
 - **Spacebar:** Fire bullets at asteroids
-
- ```mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
-```
 
 ## Authors
 Mark Meta\
