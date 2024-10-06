@@ -15,11 +15,11 @@
 ---
 title: Space Debris - Logical View
 ---
-classDiagram
-direction LR
-spaceship {
-spaceship : image_path: string 
-spaceship : +setMemberPhone()
+classDiagram 
+ direction LR
+ class spaceship {
+  spaceship : image_path: string 
+  spaceship : +setMemberPhone()
 }
 title_screen
 
