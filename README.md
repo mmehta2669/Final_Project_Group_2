@@ -23,7 +23,10 @@ classDiagram
   y: int
   screen_width: int
   screen_height: int 
-  +setMemberPhone()
+  +__init__(self, image_path, x, y, screen_width, screen_height)
+  +rotate(self)
+  +update(self)
+  +draw(self, screen)
 }
 title_screen
 
