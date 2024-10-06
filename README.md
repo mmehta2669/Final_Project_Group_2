@@ -17,19 +17,10 @@ title: Space Debris - Logical View
 ---
 classDiagram
 direction LR
-spaceship
-spaceship : image_path\: string 
-spaceship : MemberName string
-spaceship : MemberAddress string
-spaceship : MemberPhone string
-spaceship : +getMemberId()
-spaceship : +getMemberName()
-spaceship : +setMemberName()
-spaceship : +getMemberAddress()
-spaceship : +setMemberAddress()
-spaceship : +getMemberPhone()
+spaceship {
+spaceship : image_path: string 
 spaceship : +setMemberPhone()
-
+}
 title_screen
 
 space_rubble
