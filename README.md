@@ -18,7 +18,7 @@ title: Space Debris - Logical View
 classDiagram
 direction LR
 spaceship
-spaceship : MemberId int
+spaceship : image_path\: string 
 spaceship : MemberName string
 spaceship : MemberAddress string
 spaceship : MemberPhone string
