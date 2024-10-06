@@ -32,7 +32,6 @@ classDiagram
  class title_screen {
   self
   +__init__(self)
-
 }
 
  class space_rubble {
@@ -45,16 +44,27 @@ classDiagram
  class background {
   image_file : string
   location : 
-
 }
 
  class ammunition {
   self
   +__init__(self)
-
 }
 
+ class App {
+  self
+  +__init__(self)
+  +on_init(self)
+  +on_event(self)
+  +on_loop(self)
+  +on_render(self)
+  +on_cleanup(self)
+  +on_execute(self)
+}
 
+ App o-- spaceship : has-a
+ App o-- space_rubble : has-a
+ spaceship o-- ammunition : has-a
 ```
      
 ## How to Use
