@@ -21,6 +21,14 @@ To play the game, download the GitHub zip file or clone the repository.  Run the
 - **Up Arrow:** Move ship forward across game screen
 - **Spacebar:** Fire bullets at asteroids
 
+ ```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
+
 ## Authors
 Mark Meta\
 Tyrek Blanks\
