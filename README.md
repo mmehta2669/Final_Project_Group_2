@@ -104,6 +104,23 @@ flowchart TD
     C --> |No| G[Cleanup and Exit]:::red
     G --> H[End]:::red
 ```
+
+
+## State Diagram
+```mermaid
+---
+title: State Transition Diagram
+---
+stateDiagram-v2
+  [*] --> Init
+  Init --> Running: Initialization Complete
+  Running --> Running: Process Events
+  Running --> Running: Update Spaceship and Rubble
+  Running --> Render: Render Frame
+  Render --> Running: Continue Game Loop
+  Running --> Cleanup: User Quits or Collision
+  Cleanup --> [*]
+```
      
 ## How to Use
 
