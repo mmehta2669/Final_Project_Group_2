@@ -6,7 +6,7 @@ from pygame.locals import *
 
 class Spaceship(pygame.sprite.Sprite):
     def __init__(self, image_path, x, y, screen_width, screen_height):
-        super().__init__()  
+        super(Spaceship, self).__init__()  
         self.image = pygame.transform.scale(pygame.image.load(image_path), (30, 30))  
         self.original_image = self.image
         self.rect = self.image.get_rect()  
