@@ -68,8 +68,10 @@ class App:
                 self.on_event(event)
             self.on_loop()
             self.on_render()
+
         self.on_cleanup()
  
 if __name__ == "__main__" :
     theApp = App()
     theApp.on_execute()
+    
