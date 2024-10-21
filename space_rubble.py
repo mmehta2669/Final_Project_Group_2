@@ -33,8 +33,18 @@ class Space_rubble(pygame.sprite.Sprite):
         if self.start_horizontal > 0:
             self.rect.move_ip(-self.speed, 0)
             if self.start_horizontal > 0 and self.rect.right < 0:
-                self.kill()
+                self.rect = self.image.get_rect(
+                    center = (
+                self.start_horizontal,
+                self.start_vertical               
+            ) 
+                )
         elif self.start_horizontal < 0:
             self.rect.move_ip(self.speed, 0)
             if self.start_horizontal < 0 and self.rect.left > screen_width:
-                self.kill()
+                self.rect = self.image.get_rect(
+                    center = (
+                        self.start_horizontal,
+                        self.start_vertical
+                    )
+                )
