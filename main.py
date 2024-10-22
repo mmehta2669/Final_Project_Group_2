@@ -59,7 +59,9 @@ class App:
         for item in self.all_items:
             self.screen.blit(item.image, item.rect)
 
-        #this is where the collision detection should go
+        self.player.draw(self.screen)
+
+        # this is where the collision detection should go
         if pygame.sprite.spritecollide(self.player, self.rubble, False):
             print("collision detected")
             self.player.rect.center  = (self.width / 2, self.height / 2)
@@ -68,6 +70,7 @@ class App:
     def on_render(self):
         # Clear the screen by filling it with the background
         self.screen.blit(self.background, (0, 0))
+        self.player.draw(self.screen)
         self.all_items.draw(self.screen)
         pygame.display.flip()
     
@@ -92,4 +95,3 @@ class App:
 if __name__ == "__main__" :
     theApp = App()
     theApp.on_execute()
-    

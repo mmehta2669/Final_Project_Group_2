@@ -6,7 +6,7 @@ from pygame.locals import *
 
 class Spaceship(pygame.sprite.Sprite):
     def __init__(self, image_path, x, y, screen_width, screen_height):
-        super(Spaceship, self).__init__()  
+        super().__init__()  
         self.image = pygame.transform.scale(pygame.image.load(image_path), (30, 30))  
         self.original_image = self.image
         self.rect = self.image.get_rect()  
@@ -15,9 +15,9 @@ class Spaceship(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
 
-        self.thrust = 0.05  # thrust increment per frame
-        self.drag = 1.05
-        self.max_speed = 3
+        self.thrust = 0.03  # thrust increment per frame
+        self.drag = 1.03
+        self.max_speed = 2
         self.speed = 0  # current speed
         self.rotation_speed = 3
         self.angle = 0
@@ -27,13 +27,11 @@ class Spaceship(pygame.sprite.Sprite):
         self.shoot_delay = 250
         self.last_shot_time = pygame.time.get_ticks()
 
-    
     def rotate(self):
         # rotate the ship image and update the rect
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)  # keep the center in the same place
-
-
+        
     def shoot(self):
         # Fire a bullet from the front of the ship
         now = pygame.time.get_ticks()
@@ -49,9 +47,7 @@ class Spaceship(pygame.sprite.Sprite):
             # set the bullet's velocity in both directions
             bullet_dx = -math.sin(rad_angle) * self.bullet_speed
             bullet_dy = -math.cos(rad_angle) * self.bullet_speed
-
             self.bullets.append({"rect": pygame.Rect(bullet_x, bullet_y, 5, 5), "dx": bullet_dx, "dy": bullet_dy})
-
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -80,7 +76,7 @@ class Spaceship(pygame.sprite.Sprite):
             self.rect.x = 0
         if self.rect.y < 0:
             self.rect.y = 0
-    
+
         if self.rect.x > self.screen_width:
             self.rect.x = self.screen_width
         if self.rect.y > self.screen_height:
@@ -91,20 +87,15 @@ class Spaceship(pygame.sprite.Sprite):
         # Shoot bullets when spacebar is pressed
         if keys[K_z]:
             self.shoot()
-
         # Update bullets
         for bullet in self.bullets:
             bullet["rect"].x += bullet["dx"]
             bullet["rect"].y += bullet["dy"]
-
         # Remove bullets that go off screen
         self.bullets = [bullet for bullet in self.bullets if 0 <= bullet["rect"].x <= self.screen_width and 0 <= bullet["rect"].y <= self.screen_height]
-
-
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
         for bullet in self.bullets:
             pygame.draw.rect(screen, (255, 255, 255), bullet["rect"])
-
