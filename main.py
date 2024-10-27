@@ -6,6 +6,7 @@ from space_rubble import*
 from ship_explosion import *
 from game_level import *
 from pygame.locals import *
+from title_screen import TitleScreen
  
 # Basic Starting Class
 class App:
@@ -17,6 +18,7 @@ class App:
         background_image = pygame.image.load("starysky.png")
         self.background = pygame.transform.scale(background_image, self.size)
         self.ship = None
+        self.title_screen = TitleScreen()
 
     def on_init(self):
         pygame.init()
@@ -36,6 +38,8 @@ class App:
         self.max_rubble = self.level.get_max_rubble()
 
         self._running = True    
+
+    
    
      
     # Basic Game Loop Functions
@@ -83,6 +87,8 @@ class App:
     def on_execute(self):
         if self.on_init() == False:
             self._running = False
+
+        self.title_screen.show(self.screen)
  
         while( self._running ):
             for event in pygame.event.get():
