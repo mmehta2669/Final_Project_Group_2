@@ -52,11 +52,13 @@ class Spaceship(pygame.sprite.Sprite):
     def update(self):
         keys = pygame.key.get_pressed()
 
-        # rotate the ship based on arrow key inputs
-        if keys[K_LEFT]:
-            self.angle += self.rotation_speed
-        if keys[K_RIGHT]:
-            self.angle -= self.rotation_speed
+        # Rotate the ship based on arrow key inputs only if rotation is needed
+        if keys[K_LEFT] or keys[K_RIGHT]:
+            if keys[K_LEFT]:
+                self.angle += self.rotation_speed
+            if keys[K_RIGHT]:
+                self.angle -= self.rotation_speed
+            self.rotate()  # Rotate only if angle changes
 
         # Up arrow key thrusts forward
         if keys[K_UP]:
@@ -72,21 +74,13 @@ class Spaceship(pygame.sprite.Sprite):
         self.rect.y -= math.cos(rad_angle) * self.speed
 
         # Ensure the ship doesn't go offscreen
-        if self.rect.x < 0:
-            self.rect.x = 0
-        if self.rect.y < 0:
-            self.rect.y = 0
+        self.rect.clamp_ip(pygame.Rect(0, 0, self.screen_width, self.screen_height))
 
-        if self.rect.x > self.screen_width:
-            self.rect.x = self.screen_width
-        if self.rect.y > self.screen_height:
-            self.rect.y = self.screen_height
-
-        self.rotate()
 
         # Shoot bullets when spacebar is pressed
         if keys[K_z]:
             self.shoot()
+            
         # Update bullets
         for bullet in self.bullets:
             bullet.update()
