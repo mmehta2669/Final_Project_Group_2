@@ -48,3 +48,7 @@ class Space_rubble(pygame.sprite.Sprite):
                         self.start_vertical
                     )
                 )
+
+    def hit(self):
+        self.kill()
+

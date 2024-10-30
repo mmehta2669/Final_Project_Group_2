@@ -4,8 +4,11 @@ import spaceship
 from spaceship import*
 from space_rubble import*
 from ship_explosion import *
+from explosion import *
 from game_level import *
 from pygame.locals import *
+
+import time
  
 # Basic Starting Class
 class App:
@@ -17,6 +20,8 @@ class App:
         background_image = pygame.image.load("starysky.png")
         self.background = pygame.transform.scale(background_image, self.size)
         self.ship = None
+        self.explosions = pygame.sprite.Group()
+
 
     def on_init(self):
         pygame.init()
@@ -24,7 +29,7 @@ class App:
         self.player = Spaceship('ship.png', 400, 300, screen_width=770, screen_height=570)
         self.level = game_level()
 
-        #create asteroid event group and add player 
+        # Create asteroid event group and add player 
         self.add_rubble = pygame.USEREVENT + 1
         pygame.time.set_timer(self.add_rubble, 1500)
 
@@ -55,9 +60,23 @@ class App:
     def on_loop(self):
         self.player.update()
         self.rubble.update()
-        
-        for item in self.all_items:
-            self.screen.blit(item.image, item.rect)
+        self.explosions.update()
+
+        # Bullet-asteroid collision detection
+        for bullet in self.player.bullets[:]:  # Iterate over a copy of the bullet list to safely modify the original
+
+            # Check for collision with each asteroid
+            for asteroid in self.rubble.sprites():
+                if bullet.rect.colliderect(asteroid.rect):  # Check for collision
+                    self.player.bullets.remove(bullet)  # Remove bullet
+                    asteroid.hit()
+
+                    # Create and add an explosion at the asteroid's position
+                    explosion = Explosion(asteroid.rect.center)
+                    self.explosions.add(explosion)
+
+                    self.rubble.remove(asteroid)  # Remove asteroid
+                    break  # Stop checking this bullet, as it’s already removed
 
         self.player.draw(self.screen)
 
@@ -66,15 +85,16 @@ class App:
             print("collision detected")
             self.player.rect.center  = (self.width / 2, self.height / 2)
             
-                
+
+
     def on_render(self):
         # Clear the screen by filling it with the background
         self.screen.blit(self.background, (0, 0))
         self.player.draw(self.screen)
         self.all_items.draw(self.screen)
+        self.explosions.draw(self.screen)
         pygame.display.flip()
-    
-    
+        
     def on_cleanup(self):
         pygame.quit()
  

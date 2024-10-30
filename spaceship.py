@@ -3,6 +3,8 @@ import math
 import pygame
 from pygame.locals import *
 
+from bullet import Bullet
+
 
 class Spaceship(pygame.sprite.Sprite):
     def __init__(self, image_path, x, y, screen_width, screen_height):
@@ -38,16 +40,9 @@ class Spaceship(pygame.sprite.Sprite):
         if now - self.last_shot_time > self.shoot_delay:
             # Reset the time the last shot was made
             self.last_shot_time = now
-            rad_angle = math.radians(self.angle)
-            
-            # set the bullet's position in both directions
-            bullet_x = self.rect.centerx - math.sin(rad_angle) * 20
-            bullet_y = self.rect.centery - math.cos(rad_angle) * 20
-            
-            # set the bullet's velocity in both directions
-            bullet_dx = -math.sin(rad_angle) * self.bullet_speed
-            bullet_dy = -math.cos(rad_angle) * self.bullet_speed
-            self.bullets.append({"rect": pygame.Rect(bullet_x, bullet_y, 5, 5), "dx": bullet_dx, "dy": bullet_dy})
+            bullet = Bullet(self.rect.centerx, self.rect.centery, self.angle, self.bullet_speed)
+            self.bullets.append(bullet)
+
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -89,13 +84,14 @@ class Spaceship(pygame.sprite.Sprite):
             self.shoot()
         # Update bullets
         for bullet in self.bullets:
-            bullet["rect"].x += bullet["dx"]
-            bullet["rect"].y += bullet["dy"]
+            bullet.update()
+
         # Remove bullets that go off screen
-        self.bullets = [bullet for bullet in self.bullets if 0 <= bullet["rect"].x <= self.screen_width and 0 <= bullet["rect"].y <= self.screen_height]
+        self.bullets = [bullet for bullet in self.bullets if 0 <= bullet.rect.x <= self.screen_width and 0 <= bullet.rect.y <= self.screen_height]
+
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
 
         for bullet in self.bullets:
-            pygame.draw.rect(screen, (255, 255, 255), bullet["rect"])
+            pygame.draw.rect(screen, (125, 249, 255), bullet.rect)
