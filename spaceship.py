@@ -29,6 +29,10 @@ class Spaceship(pygame.sprite.Sprite):
         self.shoot_delay = 250
         self.last_shot_time = pygame.time.get_ticks()
 
+        # Load bullet sound effect
+        self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")  # Replace with the path to your sound file
+
+
     def rotate(self):
         # rotate the ship image and update the rect
         self.image = pygame.transform.rotate(self.original_image, self.angle)
@@ -41,6 +45,7 @@ class Spaceship(pygame.sprite.Sprite):
             # Reset the time the last shot was made
             self.last_shot_time = now
             bullet = Bullet(self.rect.centerx, self.rect.centery, self.angle, self.bullet_speed)
+            self.bullet_sound.play()
             self.bullets.append(bullet)
 
 
