@@ -17,8 +17,8 @@ class Spaceship(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
 
-        self.thrust = 0.03  # thrust increment per frame
-        self.drag = 1.03
+        self.thrust = 0.02  # thrust increment per frame
+        self.drag = 1.02
         self.max_speed = 2
         self.speed = 0  # current speed
         self.rotation_speed = 3
@@ -30,7 +30,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.last_shot_time = pygame.time.get_ticks()
 
         # Load bullet sound effect
-        self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")  # Replace with the path to your sound file
+        self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
 
 
     def rotate(self):
@@ -80,7 +80,7 @@ class Spaceship(pygame.sprite.Sprite):
         # Shoot bullets when spacebar is pressed
         if keys[K_z]:
             self.shoot()
-            
+
         # Update bullets
         for bullet in self.bullets:
             bullet.update()

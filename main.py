@@ -50,7 +50,7 @@ class App:
         if event.type == pygame.QUIT:
             self._running = False
         elif event.type == self.add_rubble: 
-            self.new_rubble = Space_rubble()  
+            self.new_rubble = Space_rubble()
             if self.rubble_count < self.max_rubble: 
                 self.rubble.add(self.new_rubble)
                 self.all_items.add(self.new_rubble)
@@ -85,6 +85,8 @@ class App:
         # this is where the collision detection should go
         if pygame.sprite.spritecollide(self.player, self.rubble, False):
             print("collision detected")
+            explosion = Explosion(self.player.rect.center)
+            self.explosions.add(explosion)
             self.player.rect.center  = (self.width / 2, self.height / 2)
             
 

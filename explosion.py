@@ -6,7 +6,7 @@ class Explosion(pygame.sprite.Sprite):
         
         # Load each frame of the explosion animation
         self.frames = [
-            pygame.transform.scale(pygame.image.load(f"asteroid_explosions/asteroid_explosion_{i}.png"), (100, 100))
+            pygame.transform.scale(pygame.image.load(f"asteroid_explosions_alternate/asteroid_explosion_{i}.png"), (100, 100))
             for i in range(1,8)
         ]
 
@@ -17,6 +17,10 @@ class Explosion(pygame.sprite.Sprite):
         # Set the time between frames and the start time of the animation
         self.frame_duration = 50
         self.last_update = pygame.time.get_ticks()
+
+        # Load explosion sound effect
+        self.explosion_sound = pygame.mixer.Sound("explosion.wav")
+        self.explosion_sound.play()
 
 
     def update(self):
