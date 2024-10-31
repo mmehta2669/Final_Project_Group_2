@@ -26,7 +26,7 @@ class App:
     def on_init(self):
         pygame.init()
         self.screen = pygame.display.set_mode(self.size)
-        self.player = Spaceship('ship.png', 400, 300, screen_width=770, screen_height=570)
+        self.player = Spaceship(self.screen, 400, 300, screen_width=770, screen_height=570)
         self.level = game_level()
 
         # Create asteroid event group and add player 
@@ -57,6 +57,9 @@ class App:
             if self.rubble_count != self.max_rubble:
                 self.rubble_count += 1
                 print(self.rubble_count)
+        if len(self.rubble) == 0:
+            self.level.next_level()
+            self.rubble_count = 0
     
             
     def on_loop(self):
@@ -80,7 +83,7 @@ class App:
                     self.rubble.remove(asteroid)  # Remove asteroid
                     break  # Stop checking this bullet, as it’s already removed
 
-        self.player.draw(self.screen)
+        self.player.draw()
 
         # this is where the collision detection should go
         if pygame.sprite.spritecollide(self.player, self.rubble, False):
@@ -94,7 +97,7 @@ class App:
     def on_render(self):
         # Clear the screen by filling it with the background
         self.screen.blit(self.background, (0, 0))
-        self.player.draw(self.screen)
+        self.player.draw()
         self.all_items.draw(self.screen)
         self.explosions.draw(self.screen)
         pygame.display.flip()
