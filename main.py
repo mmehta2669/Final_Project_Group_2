@@ -8,6 +8,7 @@ from explosion import *
 from game_level import *
 from pygame.locals import *
 from title_screen import TitleScreen
+from game_header import *
  
 # Basic Starting Class
 class App:
@@ -40,9 +41,10 @@ class App:
         self.rubble_count = 0
         self.max_rubble = self.level.get_max_rubble()
 
-        self._running = True    
+        # initiate lives graphic
+        self.lives = game_header(self.screen)
 
-    
+        self._running = True        
    
      
     # Basic Game Loop Functions
@@ -85,18 +87,20 @@ class App:
 
         self.player.draw()
 
-        # this is where the collision detection should go
+        # asteroid/player collision detectioon
         if pygame.sprite.spritecollide(self.player, self.rubble, False):
-            print("collision detected")
             explosion = Explosion(self.player.rect.center)
             self.explosions.add(explosion)
             self.player.rect.center  = (self.width / 2, self.height / 2)
-            
+            self.lives.remove_life()
+            if self.lives.get_lives() == 0:
+                self._running = False          
 
 
     def on_render(self):
         # Clear the screen by filling it with the background
         self.screen.blit(self.background, (0, 0))
+        self.lives.draw()
         self.player.draw()
         self.all_items.draw(self.screen)
         self.explosions.draw(self.screen)
