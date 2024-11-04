@@ -103,10 +103,11 @@ class App:
             self.explosions.add(explosion)
             self.player.rect.center  = (self.width / 2, self.height / 2)
             self.lives.remove_life()
-            if self.lives.get_lives() == 0:
-                self._running = False      
+            #reset the multiplier
             self.score.reset_multiplier()
-            self.combo = 0    
+            self.combo = 0   
+            if self.lives.get_lives() == 0:
+                self._running = False    
 
 
     def on_render(self):
