@@ -8,6 +8,8 @@ from explosion import *
 from game_level import *
 from pygame.locals import *
 from title_screen import TitleScreen
+from game_header import *
+from score_calculator import *
  
 # Basic Starting Class
 class App:
@@ -21,6 +23,9 @@ class App:
         self.ship = None
         self.title_screen = TitleScreen()
         self.explosions = pygame.sprite.Group()
+        self.score = Score_Calculator()
+        self.font = pygame.font.SysFont("georgia", 24)
+        self.combo = 0
 
 
     def on_init(self):
@@ -40,9 +45,10 @@ class App:
         self.rubble_count = 0
         self.max_rubble = self.level.get_max_rubble()
 
-        self._running = True    
+        # initiate lives graphic
+        self.lives = game_header(self.screen)
 
-    
+        self._running = True        
    
      
     # Basic Game Loop Functions
@@ -75,6 +81,12 @@ class App:
                 if bullet.rect.colliderect(asteroid.rect):  # Check for collision
                     self.player.bullets.remove(bullet)  # Remove bullet
                     asteroid.hit()
+                    
+                    #combo track num of asteroids hit in curent life, combos every 10 hits
+                    self.combo += 1 
+                    if self.combo > 0 and self.combo % 10 == 0:
+                        self.score.multiplier += 1
+                    self.score.increse_score()#increse score
 
                     # Create and add an explosion at the asteroid's position
                     explosion = Explosion(asteroid.rect.center)
@@ -85,21 +97,34 @@ class App:
 
         self.player.draw()
 
-        # this is where the collision detection should go
+        # asteroid/player collision detectioon
         if pygame.sprite.spritecollide(self.player, self.rubble, False):
-            print("collision detected")
             explosion = Explosion(self.player.rect.center)
             self.explosions.add(explosion)
             self.player.rect.center  = (self.width / 2, self.height / 2)
-            
+            self.lives.remove_life()
+            #reset the multiplier
+            self.score.reset_multiplier()
+            self.combo = 0   
+            if self.lives.get_lives() == 0:
+                self._running = False    
 
 
     def on_render(self):
         # Clear the screen by filling it with the background
         self.screen.blit(self.background, (0, 0))
+        self.lives.draw()
         self.player.draw()
         self.all_items.draw(self.screen)
         self.explosions.draw(self.screen)
+        
+        # Displays the score and multiplier
+        self.score_txt = "Score: " + str(self.score.get_score())
+        self.mult_txt = "Multiplier: " + str(self.score.get_multiplier())
+        score_text = self.font.render(self.score_txt + " " + self.mult_txt, True, (255, 255, 255))
+        score_rect = score_text.get_rect(topleft=(10, 10))
+        
+        self.screen.blit(score_text, score_rect)
         pygame.display.flip()
         
     def on_cleanup(self):
