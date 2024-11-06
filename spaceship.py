@@ -22,7 +22,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.drag = 1.02
         self.max_speed = 2
         self.speed = 0  # current speed
-        self.rotation_speed = 3
+        self.rotation_speed = 2
         self.angle = 0
 
         self.bullets = []
@@ -76,7 +76,7 @@ class Spaceship(pygame.sprite.Sprite):
             self.bullet_speed = 10
             self.shoot_delay = 0
             self.bullet_sound = pygame.mixer.Sound("laser_shot.wav")
-            self.bullet_color = (255, 0, 0)
+            self.bullet_color = (125, 249, 255)
             self.bullet_size = (2, 10)
 
 

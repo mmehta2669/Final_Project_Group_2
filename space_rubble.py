@@ -12,6 +12,7 @@ class Space_rubble(pygame.sprite.Sprite):
     def __init__(self):
         super(Space_rubble, self).__init__()  
         self.image = pygame.transform.scale(pygame.image.load("rock.png"), (100, 100))
+        self.image = pygame.transform.rotate(self.image, random.randint(0, 360))
         
         self.start_horizontal_left = random.randint(-50, -10)
         self.start_horizontal_right = random.randint(screen_width + 10, screen_width + 50)        
@@ -27,11 +28,11 @@ class Space_rubble(pygame.sprite.Sprite):
             )            
         )
 
-        self.speed = 1
+        self.speedx = 1
         
     def update(self):
         if self.start_horizontal > 0:
-            self.rect.move_ip(-self.speed, 0)
+            self.rect.move_ip(-self.speedx, 0)
             if self.start_horizontal > 0 and self.rect.right < 0:
                 self.rect = self.image.get_rect(
                     center = (
@@ -40,7 +41,7 @@ class Space_rubble(pygame.sprite.Sprite):
             ) 
                 )
         elif self.start_horizontal < 0:
-            self.rect.move_ip(self.speed, 0)
+            self.rect.move_ip(self.speedx, 0)
             if self.start_horizontal < 0 and self.rect.left > screen_width:
                 self.rect = self.image.get_rect(
                     center = (
