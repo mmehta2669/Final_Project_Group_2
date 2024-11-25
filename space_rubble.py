@@ -12,6 +12,7 @@ class Space_rubble(pygame.sprite.Sprite):
     def __init__(self):
         super(Space_rubble, self).__init__()  
         self.image = pygame.transform.scale(pygame.image.load("rock.png"), (100, 100))
+        self.image = pygame.transform.rotate(self.image, random.randint(0, 360))
         
         # create random horizontal and vertical start points for rubble objects
         self.start_left_or_top = random.randint(-50, -10)
