@@ -2,15 +2,16 @@ import pygame
 from pygame.locals import *
 
 class TitleScreen:
-    def __init__(self):
+    def __init__(self, text):
         pygame.init()
         self.font = pygame.font.SysFont("georgia", 64, True)
         self.button_font = pygame.font.SysFont("Arial", 24)
         self.button_rect = pygame.Rect(350, 400, 100, 50)
+        self.text = text
 
     def show(self, screen):
         screen.fill((0, 0, 0))  # Fill the screen with black
-        text = self.font.render("Astroids", True, (255, 255, 255))  # Render the title text
+        text = self.font.render(self.text, True, (255, 255, 255))  # Render the title text
         text_rect = text.get_rect(center=(400, 150))  # Get the rect of the text
         screen.blit(text, text_rect)  # Blit the text onto the screen
 

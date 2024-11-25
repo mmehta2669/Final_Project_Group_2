@@ -80,7 +80,6 @@ class Spaceship(pygame.sprite.Sprite):
             self.bullet_size = (2, 10)
 
 
-
     def rotate(self):
         # rotate the ship image and update the rect
         self.image = pygame.transform.rotate(self.original_image, self.angle)
@@ -147,7 +146,7 @@ class Spaceship(pygame.sprite.Sprite):
             bullet.update()
 
         # Remove bullets that go off screen
-        self.bullets = [bullet for bullet in self.bullets if 0 <= bullet.rect.x <= self.screen_width and 0 <= bullet.rect.y <= self.screen_height]
+        self.bullets = [bullet for bullet in self.bullets if 0 <= bullet.rect.x <= self.screen_width and 0 <= bullet.rect.y <= self.screen_height]      
 
 
     def draw(self):
