@@ -35,7 +35,7 @@ class Space_rubble(pygame.sprite.Sprite):
         self.rand_start = random.choice(self.start_top_side)
 
         if self.rand_start == "top/bottom":
-            self.start_horizontal = random.randint(20, screen_width - 20)
+            self.start_horizontal = random.randint(30, screen_width - 30)
             self.start_vertical = random.choice(self.start_top_bottom)
 
             self.rect = self.image.get_rect(
@@ -57,7 +57,7 @@ class Space_rubble(pygame.sprite.Sprite):
             )
 
         # create random speeds for asteroids and sets speed at which asteroid object will move
-        self.speed_options = (1, 1.3, 1.5, 1.8, 2, 3)
+        self.speed_options = (1, 1.3, 1.5, 1.8, 2, 4)
         self.speed = random.choice(self.speed_options)
 
     def get_speed(self):
