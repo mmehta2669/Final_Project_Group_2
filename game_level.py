@@ -4,12 +4,11 @@ from space_rubble import *
 
 class game_level():
     def __init__(self):
-        #pygame.init()
-        #self.font = pygame.font.SysFont("georgia", 64, True)
+        self.font = pygame.font.SysFont("georgia", 64, True)
         self.max_rubble = 5
         self.rubble_count = 0
         self.level = 1
-        self.speed = 1.5
+        self.speed = 1.5        
 
     # creates new enemy object that will be added to the game screen
     def get_new_rubble(self):    
@@ -36,6 +35,16 @@ class game_level():
         self.rubble_count == 0
         self.level += 1
         self.speed *= 1.1
+
+    # display level cleared text 
+    def display_text(self):
+        self.level_cleared_text = "Level " + "Cleared!"
+        level_cleared_text = self.font.render(self.level_cleared_text, True, (255, 255, 255))
+        level_cleared_rect = level_cleared_text.get_rect(center=(400, 300))
+        return level_cleared_text, level_cleared_rect
+
+        
+    
 
 
 

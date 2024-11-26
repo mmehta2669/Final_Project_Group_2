@@ -52,9 +52,10 @@ class App:
 
         self._running = True
 
-        # initialize timer event for player invincibility
-
-
+        # initialize time variables for level up
+        self.pause = False
+        self.pause_length = 3500
+        self.pause_start_time = 0
    
      
     # Basic Game Loop Functions
@@ -62,23 +63,32 @@ class App:
         if event.type == pygame.QUIT:
             self._running = False
         # asteroid spawning and level control
-        elif event.type == self.add_rubble: 
+        elif event.type == self.add_rubble and self.pause == False: # only run this condition if game is not paused
             max_rubble = self.level.get_max_rubble()
             self.new_rubble = self.level.get_new_rubble()
             if self.rubble_count < max_rubble: 
                 self.rubble.add(self.new_rubble)
                 self.all_items.add(self.new_rubble)
-            elif len(self.rubble.sprites()) == 0:
-                self.level.next_level()
+            elif len(self.rubble.sprites()) == 0: # condition that indicates level has been cleared
+                self.pause = True
+                self.pause_start_time = pygame.time.get_ticks()
                 self.rubble_count = 0
                 self.spawn_rate //= 1.6
-                pygame.time.set_timer(self.add_rubble, int(self.spawn_rate))
+                pygame.time.set_timer(self.add_rubble, int(self.spawn_rate)) 
+                
             if self.rubble_count != max_rubble:
                 self.rubble_count += 1
                 print(self.rubble_count)
     
             
     def on_loop(self):
+        # Calculate time passed, unpause game after pause_length has expired, and proceed to the next level
+        if self.pause == True:
+            if pygame.time.get_ticks() - self.pause_start_time > self.pause_length:
+                self.pause = False
+                self.level.next_level()
+            return
+
         self.player.update()
         self.rubble.update()
         self.explosions.update()
@@ -117,7 +127,7 @@ class App:
             self.score.reset_multiplier()
             self.combo = 0  
             if self.lives.get_lives() == 0:
-                self._running = False    
+                self._running = False   
 
 
     def on_render(self):
@@ -127,6 +137,11 @@ class App:
         self.player.draw()
         self.all_items.draw(self.screen)
         self.explosions.draw(self.screen)
+
+        # Display level cleared text
+        if self.pause:
+            level_cleared_text, level_cleared_rect = self.level.display_text()
+            self.screen.blit(level_cleared_text, level_cleared_rect)
         
         # Displays the score and multiplier
         self.score_txt = "Score: " + str(self.score.get_score())
