@@ -8,7 +8,7 @@ from explosion import *
 from game_level import *
 from pygame.locals import *
 from title_screen import TitleScreen
-from game_header import *
+from life_header import *
 from score_calculator import *
  
 # Basic Starting Class
@@ -48,7 +48,7 @@ class App:
         pygame.time.set_timer(self.add_rubble, self.spawn_rate)
        
         # initiate lives graphic
-        self.lives = game_header(self.screen)
+        self.lives = life_header(self.screen)
 
         self._running = True
 
@@ -83,7 +83,7 @@ class App:
             
     def on_loop(self):
         # Calculate time passed, unpause game after pause_length has expired, and proceed to the next level
-        if self.pause == True:
+        if self.pause:
             if pygame.time.get_ticks() - self.pause_start_time > self.pause_length:
                 self.pause = False
                 self.level.next_level()
