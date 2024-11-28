@@ -38,6 +38,8 @@ classDiagram
   self
   +__init__(self)
   +update(self)
+  +get_speed(self)
+  +increase_speed(self)
 }
 
 
