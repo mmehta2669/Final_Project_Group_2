@@ -79,6 +79,13 @@ classDiagram
   +display_text(self)
 }
 
+ class explosion {
+  self
+  position: list(int, int)
+  +__init__(self, position)
+  +update(self)
+}
+
  class main {
   self
   +__init__(self)
@@ -95,6 +102,7 @@ classDiagram
  main o-- title_screen : has-a
  main o-- life_header: has-a
  main o-- game_level: has-a
+ main o-- explosion: has-a
  spaceship o-- bullet : has-a
 ```
 
