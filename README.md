@@ -86,6 +86,16 @@ classDiagram
   +update(self)
 }
 
+ class score_calculator {
+  self
+  +__init__(self)
+  +increase_score(self)
+  +get_score(self)
+  +get_multiplier(self)
+  +increase_multiplier(self)
+  +reset_multiplier(self)
+}
+
  class main {
   self
   +__init__(self)
@@ -103,6 +113,7 @@ classDiagram
  main o-- life_header: has-a
  main o-- game_level: has-a
  main o-- explosion: has-a
+ main o-- sore_calculator: has-a
  spaceship o-- bullet : has-a
  game_level o-- space_rubble: has-a
 ```
