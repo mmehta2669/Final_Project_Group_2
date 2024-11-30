@@ -1,9 +1,5 @@
 import pygame
-import background
-import spaceship
 from spaceship import*
-from space_rubble import*
-from ship_explosion import *
 from explosion import *
 from game_level import *
 from pygame.locals import *
