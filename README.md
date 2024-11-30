@@ -48,12 +48,32 @@ classDiagram
   location : 
 }
 
- class ammunition {
+ class bullet {
   self
   +__init__(self)
 }
 
- class App {
+ class life_header {
+  self
+  screen:
+  x: int
+  y: int
+  +__init__(self, screen, x, y)
+  +get_lives(self)
+  +remove_life(self)
+  +draw(self)
+}
+
+ class game_level {
+  self
+  +__init__(self)
+  +get_new_rubble(self)
+  +get_max_rubble(self)
+  +set_rubble_count(self)
+  +next_level(self)
+  +display_text(self)
+
+ class main {
   self
   +__init__(self)
   +on_init(self)
@@ -64,11 +84,13 @@ classDiagram
   +on_execute(self)
 }
 
- App o-- spaceship : has-a
- App o-- space_rubble : has-a
- App o-- title_screen : has-a
- App o-- background : has-a
- spaceship o-- ammunition : has-a
+ main o-- spaceship : has-a
+ main o-- space_rubble : has-a
+ main o-- title_screen : has-a
+ main o-- background : has-a
+ main o-- life_header: has-a
+ main o-- game_level: has-a
+ spaceship o-- bullet : has-a
 ```
 
 ## Logical Flow of the Game Loop
