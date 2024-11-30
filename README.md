@@ -31,7 +31,9 @@ classDiagram
 
  class title_screen {
   self
-  +__init__(self)
+  text: str
+  +__init__(self, text)
+  +show(self, screen)
 }
 
  class space_rubble {
@@ -40,12 +42,6 @@ classDiagram
   +update(self)
   +get_speed(self)
   +increase_speed(self)
-}
-
-
- class background {
-  image_file : string
-  location : 
 }
 
  class bullet {
