@@ -72,6 +72,7 @@ classDiagram
   +set_rubble_count(self)
   +next_level(self)
   +display_text(self)
+}
 
  class main {
   self
