@@ -50,7 +50,16 @@ classDiagram
 
  class bullet {
   self
-  +__init__(self)
+  screen:
+  x: int
+  y: int
+  angle: int
+  speed: int
+  color: list(int)
+  size: int
+  +__init__(self, screen, x, y, angle, speed, color, size)
+  +update(self)
+  +draw(self)
 }
 
  class life_header {
