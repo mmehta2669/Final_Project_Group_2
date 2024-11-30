@@ -93,7 +93,6 @@ classDiagram
  main o-- spaceship : has-a
  main o-- space_rubble : has-a
  main o-- title_screen : has-a
- main o-- background : has-a
  main o-- life_header: has-a
  main o-- game_level: has-a
  spaceship o-- bullet : has-a
