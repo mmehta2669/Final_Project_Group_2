@@ -113,7 +113,7 @@ classDiagram
  main o-- life_header: has-a
  main o-- game_level: has-a
  main o-- explosion: has-a
- main o-- sore_calculator: has-a
+ main o-- score_calculator: has-a
  spaceship o-- bullet : has-a
  game_level o-- space_rubble: has-a
 ```
