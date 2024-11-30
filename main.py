@@ -78,7 +78,7 @@ class App:
 
             # Check for collision with each asteroid
             for asteroid in self.rubble.sprites():
-                if bullet.rect.colliderect(asteroid.rect):  # Check for collision
+                if pygame.sprite.collide_mask(bullet, asteroid):  # Check for collision
                     self.player.bullets.remove(bullet)  # Remove bullet
                     asteroid.hit()
                     
@@ -98,7 +98,7 @@ class App:
         self.player.draw()
 
         # asteroid/player collision detectioon
-        if pygame.sprite.spritecollide(self.player, self.rubble, False):
+        if pygame.sprite.spritecollide(self.player, self.rubble, False, pygame.sprite.collide_mask):
             explosion = Explosion(self.player.rect.center)
             self.explosions.add(explosion)
             self.player.rect.center  = (self.width / 2, self.height / 2)
@@ -138,7 +138,7 @@ class App:
 
         self.title_screen.show(self.screen)
  
-        while( self._running ):
+        while self._running:
             for event in pygame.event.get():
                 self.on_event(event)
             self.on_loop()

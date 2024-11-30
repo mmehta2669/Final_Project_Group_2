@@ -28,6 +28,9 @@ class Space_rubble(pygame.sprite.Sprite):
             )            
         )
 
+        # Create a mask for precise hit detection
+        self.mask = pygame.mask.from_surface(self.image)
+
         self.speedx = 1
         
     def update(self):
