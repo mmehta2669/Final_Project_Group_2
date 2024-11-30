@@ -1,14 +1,10 @@
 import pygame
-import background
-import spaceship
 from spaceship import*
-from space_rubble import*
-from ship_explosion import *
 from explosion import *
 from game_level import *
 from pygame.locals import *
 from title_screen import TitleScreen
-from game_header import *
+from life_header import *
 from score_calculator import *
  
 # Basic Starting Class
@@ -21,11 +17,16 @@ class App:
         background_image = pygame.image.load("starysky.png")
         self.background = pygame.transform.scale(background_image, self.size)
         self.ship = None
-        self.title_screen = TitleScreen()
+        self.title_screen = TitleScreen("Asteroids")
         self.explosions = pygame.sprite.Group()
         self.score = Score_Calculator()
         self.font = pygame.font.SysFont("georgia", 24)
         self.combo = 0
+
+        # create sprite groups for enemy objects and all objects
+        self.rubble = pygame.sprite.Group()
+        self.all_items = pygame.sprite.Group()
+        self.rubble_count = 0 # counter to control the amount of asteroids per level
 
 
     def on_init(self):
@@ -34,41 +35,56 @@ class App:
         self.player = Spaceship(self.screen, 400, 300, screen_width=770, screen_height=570)
         self.level = game_level()
 
-        # Create asteroid event group and add player 
+        # create asteroid event group and add player all objects sprite group
         self.add_rubble = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.add_rubble, 1500)
-
-        self.rubble = pygame.sprite.Group()
-        self.all_items = pygame.sprite.Group()
         self.all_items.add(self.player)
 
-        self.rubble_count = 0
-        self.max_rubble = self.level.get_max_rubble()
-
+        # create timer for spawn rate of asteroids
+        self.spawn_rate = 1500
+        pygame.time.set_timer(self.add_rubble, self.spawn_rate)
+       
         # initiate lives graphic
-        self.lives = game_header(self.screen)
+        self.lives = life_header(self.screen)
 
-        self._running = True        
+        self._running = True
+
+        # initialize time variables for level up
+        self.pause = False
+        self.pause_length = 3500
+        self.pause_start_time = 0
    
      
     # Basic Game Loop Functions
     def on_event(self, event):
         if event.type == pygame.QUIT:
             self._running = False
-        elif event.type == self.add_rubble: 
-            self.new_rubble = Space_rubble()
-            if self.rubble_count < self.max_rubble: 
+        # asteroid spawning and level control
+        elif event.type == self.add_rubble and self.pause == False: # only run this condition if game is not paused
+            max_rubble = self.level.get_max_rubble()
+            self.new_rubble = self.level.get_new_rubble()
+            if self.rubble_count < max_rubble: 
                 self.rubble.add(self.new_rubble)
                 self.all_items.add(self.new_rubble)
-            if self.rubble_count != self.max_rubble:
+            elif len(self.rubble.sprites()) == 0: # condition that indicates level has been cleared
+                self.pause = True
+                self.pause_start_time = pygame.time.get_ticks()
+                self.rubble_count = 0
+                self.spawn_rate //= 1.6
+                pygame.time.set_timer(self.add_rubble, int(self.spawn_rate)) 
+                
+            if self.rubble_count != max_rubble:
                 self.rubble_count += 1
                 print(self.rubble_count)
-        if len(self.rubble) == 0:
-            self.level.next_level()
-            self.rubble_count = 0
     
             
     def on_loop(self):
+        # Calculate time passed, unpause game after pause_length has expired, and proceed to the next level
+        if self.pause:
+            if pygame.time.get_ticks() - self.pause_start_time > self.pause_length:
+                self.pause = False
+                self.level.next_level()
+            return
+
         self.player.update()
         self.rubble.update()
         self.explosions.update()
@@ -86,7 +102,7 @@ class App:
                     self.combo += 1 
                     if self.combo > 0 and self.combo % 10 == 0:
                         self.score.multiplier += 1
-                    self.score.increse_score()#increse score
+                    self.score.increse_score() #increse score
 
                     # Create and add an explosion at the asteroid's position
                     explosion = Explosion(asteroid.rect.center)
@@ -105,9 +121,9 @@ class App:
             self.lives.remove_life()
             #reset the multiplier
             self.score.reset_multiplier()
-            self.combo = 0   
+            self.combo = 0  
             if self.lives.get_lives() == 0:
-                self._running = False    
+                self._running = False   
 
 
     def on_render(self):
@@ -117,6 +133,11 @@ class App:
         self.player.draw()
         self.all_items.draw(self.screen)
         self.explosions.draw(self.screen)
+
+        # Display level cleared text
+        if self.pause:
+            level_cleared_text, level_cleared_rect = self.level.display_text()
+            self.screen.blit(level_cleared_text, level_cleared_rect)
         
         # Displays the score and multiplier
         self.score_txt = "Score: " + str(self.score.get_score())
@@ -131,7 +152,7 @@ class App:
         pygame.quit()
  
 
-    # The excute block which runs the loop reners an cleanup
+    # The execute block which runs the loop renders on cleanup
     def on_execute(self):
         if self.on_init() == False:
             self._running = False
