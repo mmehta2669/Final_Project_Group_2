@@ -14,6 +14,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.original_image = self.image
         self.rect = self.image.get_rect()  
         self.rect.center = (x, y)
+        self.ship_level = 1
 
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -32,17 +33,12 @@ class Spaceship(pygame.sprite.Sprite):
         self.bullet_size = (5, 5)
         self.last_shot_time = pygame.time.get_ticks()
 
-        self.current_weapon = 1
-        self.total_weapons = 4
-        self.weapon_switch_cooldown = 300  # Cooldown in milliseconds
-        self.last_switch_time = 0  # Last time weapon was switched
-
         # Load bullet sound effect
         self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
 
 
-    def change_weapon(self, weapon):
-        if weapon == 1:
+    def level_up_ship(self):
+        if self.ship_level == 1:
             self.image = pygame.transform.scale(pygame.image.load("ship_1.png"), (30, 30))
             self.original_image = self.image
             self.rotate()
@@ -51,7 +47,7 @@ class Spaceship(pygame.sprite.Sprite):
             self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
             self.bullet_color = (125, 249, 255)
             self.bullet_size = (5, 5)
-        if weapon == 2:
+        if self.ship_level == 2:
             self.image = pygame.transform.scale(pygame.image.load("ship_2.png"), (30, 30))
             self.original_image = self.image
             self.rotate()
@@ -60,7 +56,7 @@ class Spaceship(pygame.sprite.Sprite):
             self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
             self.bullet_color = (255, 255, 255)
             self.bullet_size = (5, 5)
-        elif weapon == 3:
+        elif self.ship_level == 3:
             self.image = pygame.transform.scale(pygame.image.load("ship_3.png"), (30, 30)) 
             self.original_image = self.image
             self.rotate()
@@ -69,7 +65,7 @@ class Spaceship(pygame.sprite.Sprite):
             self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
             self.bullet_color = (255, 50, 255)
             self.bullet_size = (5, 5)
-        elif weapon == 4:
+        elif self.ship_level >= 4:
             self.image = pygame.transform.scale(pygame.image.load("ship_4.png"), (30, 30)) 
             self.original_image = self.image
             self.rotate()
@@ -108,16 +104,6 @@ class Spaceship(pygame.sprite.Sprite):
             if keys[K_RIGHT]:
                 self.angle -= self.rotation_speed
             self.rotate()  # Rotate only if angle changes
-
-
-        # Control weapon switching
-        if keys[K_LSHIFT] and now - self.last_switch_time > self.weapon_switch_cooldown:
-            self.current_weapon += 1
-            if self.current_weapon > self.total_weapons:
-                self.current_weapon = 1
-
-            self.change_weapon(self.current_weapon)
-            self.last_switch_time = now  # Update last switch time
 
 
         # Up arrow key thrusts forward

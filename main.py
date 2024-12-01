@@ -6,6 +6,7 @@ from pygame.locals import *
 from title_screen import TitleScreen
 from life_header import *
 from score_calculator import *
+from powerup import *
  
 # Basic Starting Class
 class App:
@@ -26,6 +27,7 @@ class App:
         # create sprite groups for enemy objects and all objects
         self.rubble = pygame.sprite.Group()
         self.all_items = pygame.sprite.Group()
+        self.powerups = pygame.sprite.Group()
         self.rubble_count = 0 # counter to control the amount of asteroids per level
 
 
@@ -109,7 +111,18 @@ class App:
                     self.explosions.add(explosion)
 
                     self.rubble.remove(asteroid)  # Remove asteroid
+                    if random.random() < 0.5:
+                        powerup = PowerUp(asteroid.rect.center)
+                        self.powerups.add(powerup)
+                        self.all_items.add(powerup)
                     break  # Stop checking this bullet, as it’s already removed
+
+        for powerup in self.powerups.sprites():
+            if pygame.sprite.collide_mask(self.player, powerup):
+                self.powerups.remove(powerup)
+                self.all_items.remove(powerup)
+                self.player.ship_level += 1
+                self.player.level_up_ship()
 
         self.player.draw()
 
