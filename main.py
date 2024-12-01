@@ -111,7 +111,7 @@ class App:
                     self.explosions.add(explosion)
 
                     self.rubble.remove(asteroid)  # Remove asteroid
-                    if random.random() < 0.5:
+                    if random.random() < 0.1:
                         powerup = PowerUp(asteroid.rect.center)
                         self.powerups.add(powerup)
                         self.all_items.add(powerup)
