@@ -7,7 +7,7 @@ class Score_Calculator:
     def increse_score(self):
         # Increment the score by the base x the mutiplier
         self.score += self.base * self.multiplier
-
+        
     #getters for the class
     def get_score(self):
         return self.score
@@ -19,3 +19,5 @@ class Score_Calculator:
         self.multiplier += 1
     def reset_multiplier(self):
         self.multiplier = 1
+    
+    
