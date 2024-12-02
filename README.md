@@ -180,7 +180,6 @@ To play the game, download the GitHub zip file or clone the repository.  Run the
 - **Right Arrow:** Rotate ship to the right
 - **Up Arrow:** Move ship forward across game screen
 - **z:** Fire bullets at asteroids
-- **left shift:** Change ship character and ammunition type.
 
 ## Authors
 Mark Meta\
