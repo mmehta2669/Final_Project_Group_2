@@ -180,7 +180,7 @@ To play the game, download the GitHub zip file or clone the repository.  Run the
 To test, ensure that you have pytest installed using pip install pytest, then call python -m unittest discover tests
 
 ## Game Controls
--**Mouse** Select start, resume, and quit
+- **Mouse** Select start, resume, and quit
 - **Left Arrow:**  Rotate ship to the left
 - **Right Arrow:** Rotate ship to the right
 - **Up Arrow:** Move ship forward across game screen
