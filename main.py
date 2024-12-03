@@ -7,6 +7,7 @@ from title_screen import TitleScreen
 from life_header import *
 from score_calculator import *
 from powerup import *
+from pause_menu import *
  
 # Basic Starting Class
 class App:
@@ -23,6 +24,7 @@ class App:
         self.score = Score_Calculator()
         self.font = pygame.font.SysFont("georgia", 24)
         self.combo = 0
+        self.pause_menu = PauseMenu()
 
         # create sprite groups for enemy objects and all objects
         self.rubble = pygame.sprite.Group()
@@ -77,6 +79,11 @@ class App:
             if self.rubble_count != max_rubble:
                 self.rubble_count += 1
                 print(self.rubble_count)
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                if self.pause_menu.show(self.screen, self.score.get_score(), False):
+                    self._running = False 
+
     
             
     def on_loop(self):
@@ -90,6 +97,7 @@ class App:
         self.player.update()
         self.rubble.update()
         self.explosions.update()
+        
 
         # Bullet-asteroid collision detection
         for bullet in self.player.bullets[:]:  # Iterate over a copy of the bullet list to safely modify the original
@@ -166,17 +174,20 @@ class App:
  
 
     # The execute block which runs the loop renders on cleanup
-    def on_execute(self):
+    def on_execute(self, test=False):
+        one_run = False
         if self.on_init() == False:
             self._running = False
 
         self.title_screen.show(self.screen)
  
-        while self._running:
+        while self._running and one_run != True:
             for event in pygame.event.get():
                 self.on_event(event)
             self.on_loop()
             self.on_render()
+            if test:
+                one_run = True
 
         self.on_cleanup()
  
