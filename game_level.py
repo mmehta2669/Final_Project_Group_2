@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from space_rubble import *
 
-class game_level():
+class GameLevel():
     def __init__(self):
         self.font = pygame.font.SysFont("georgia", 64, True)
         self.max_rubble = 5

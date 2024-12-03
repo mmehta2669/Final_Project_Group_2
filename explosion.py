@@ -6,7 +6,7 @@ class Explosion(pygame.sprite.Sprite):
         
         # Load each frame of the explosion animation
         self.frames = [
-            pygame.transform.scale(pygame.image.load(f"asteroid_explosions_alternate/asteroid_explosion_{i}.png"), (100, 100))
+            pygame.transform.scale(pygame.image.load(f"asteroid_explosions/asteroid_explosion_{i}.png"), (100, 100))
             for i in range(1,8)
         ]
 

@@ -1,4 +1,5 @@
-class Score_Calculator:
+
+class ScoreCalculator:
     def __init__(self):
         self.score = 0
         self.base = 10

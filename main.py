@@ -1,18 +1,21 @@
 import pygame
-from spaceship import*
-from explosion import *
-from game_level import *
+from random import random
+
+from spaceship import Spaceship
+from explosion import Explosion
+from game_level import GameLevel
 from pygame.locals import *
 from title_screen import TitleScreen
-from life_header import *
-from score_calculator import *
-from powerup import *
-from pause_menu import *
+from life_header import LifeHeader
+from score_calculator import ScoreCalculator
+from powerup import PowerUp
+from pause_menu import PauseMenu
  
-# Basic Starting Class
+
 class App:
     
     def __init__(self):
+        pygame.init()
         self._running = True
         self.screen = None
         self.size = self.width, self.height = 800, 600
@@ -21,7 +24,7 @@ class App:
         self.ship = None
         self.title_screen = TitleScreen("Asteroids")
         self.explosions = pygame.sprite.Group()
-        self.score = Score_Calculator()
+        self.score = ScoreCalculator()
         self.font = pygame.font.SysFont("georgia", 24)
         self.combo = 0
         self.pause_menu = PauseMenu()
@@ -37,7 +40,7 @@ class App:
         pygame.init()
         self.screen = pygame.display.set_mode(self.size)
         self.player = Spaceship(self.screen, 400, 300, screen_width=770, screen_height=570)
-        self.level = game_level()
+        self.level = GameLevel()
 
         # create asteroid event group and add player all objects sprite group
         self.add_rubble = pygame.USEREVENT + 1
@@ -48,7 +51,7 @@ class App:
         pygame.time.set_timer(self.add_rubble, self.spawn_rate)
        
         # initiate lives graphic
-        self.lives = life_header(self.screen)
+        self.lives = LifeHeader(self.screen)
 
         self._running = True
 
@@ -119,7 +122,7 @@ class App:
                     self.explosions.add(explosion)
 
                     self.rubble.remove(asteroid)  # Remove asteroid
-                    if random.random() < 0.1:
+                    if random() < 0.1:
                         powerup = PowerUp(asteroid.rect.center)
                         self.powerups.add(powerup)
                         self.all_items.add(powerup)

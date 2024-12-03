@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import*
 
-class life_header(pygame.sprite.Sprite):
+class LifeHeader(pygame.sprite.Sprite):
     def __init__(self, screen, x = 650, y = 25):
         super().__init__()
         self.screen = screen
