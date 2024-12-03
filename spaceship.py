@@ -34,7 +34,7 @@ class Spaceship(pygame.sprite.Sprite):
         self.last_shot_time = pygame.time.get_ticks()
 
         # Load bullet sound effect
-        self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
+        self.bullet_sound = pygame.mixer.Sound("sound_effects/bullet_shot.wav")
 
 
     def level_up_ship(self):
@@ -44,7 +44,7 @@ class Spaceship(pygame.sprite.Sprite):
             self.rotate()
             self.bullet_speed = 5
             self.shoot_delay = 250
-            self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
+            self.bullet_sound = pygame.mixer.Sound("sound_effects/bullet_shot.wav")
             self.bullet_color = (125, 249, 255)
             self.bullet_size = (5, 5)
         if self.ship_level == 2:
@@ -52,26 +52,26 @@ class Spaceship(pygame.sprite.Sprite):
             self.original_image = self.image
             self.rotate()
             self.bullet_speed = 5
-            self.shoot_delay = 200
-            self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
+            self.shoot_delay = 220
+            self.bullet_sound = pygame.mixer.Sound("sound_effects/bullet_shot.wav")
             self.bullet_color = (255, 255, 255)
             self.bullet_size = (5, 5)
         elif self.ship_level == 3:
             self.image = pygame.transform.scale(pygame.image.load("ship_3.png"), (30, 30)) 
             self.original_image = self.image
             self.rotate()
-            self.bullet_speed = 10
-            self.shoot_delay = 100
-            self.bullet_sound = pygame.mixer.Sound("bullet_shot.wav")
+            self.bullet_speed = 6
+            self.shoot_delay = 200
+            self.bullet_sound = pygame.mixer.Sound("sound_effects/bullet_shot.wav")
             self.bullet_color = (255, 50, 255)
             self.bullet_size = (5, 5)
         elif self.ship_level >= 4:
             self.image = pygame.transform.scale(pygame.image.load("ship_4.png"), (30, 30)) 
             self.original_image = self.image
             self.rotate()
-            self.bullet_speed = 10
-            self.shoot_delay = 0
-            self.bullet_sound = pygame.mixer.Sound("laser_shot.wav")
+            self.bullet_speed = 6
+            self.shoot_delay = 150
+            self.bullet_sound = pygame.mixer.Sound("sound_effects/laser_shot.wav")
             self.bullet_color = (125, 249, 255)
             self.bullet_size = (2, 10)
 
@@ -80,7 +80,7 @@ class Spaceship(pygame.sprite.Sprite):
         # rotate the ship image and update the rect
         self.image = pygame.transform.rotate(self.original_image, self.angle)
         self.rect = self.image.get_rect(center=self.rect.center)  # keep the center in the same place
-        
+
 
     def shoot(self):
         # Fire a bullet from the front of the ship

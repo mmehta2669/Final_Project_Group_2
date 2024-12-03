@@ -19,7 +19,7 @@ class Explosion(pygame.sprite.Sprite):
         self.last_update = pygame.time.get_ticks()
 
         # Load explosion sound effect
-        self.explosion_sound = pygame.mixer.Sound("explosion.wav")
+        self.explosion_sound = pygame.mixer.Sound("sound_effects/explosion.wav")
         self.explosion_sound.play()
 
 
