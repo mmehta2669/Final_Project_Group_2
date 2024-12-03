@@ -1,0 +1,41 @@
+name: Asteroids CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pygame pytest pyinstaller
+
+      - name: Run unit tests
+        run: pytest
+
+      - name: Verify build artifacts
+        run: |
+          if [ ! -f dist/main ]; then
+            echo "Build artifact is missing!"
+            exit 1
+          fi
+
+      - name: Archive build artivacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: AsteroidsBuild
+          path: dist/main
+          
