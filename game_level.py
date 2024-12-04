@@ -5,8 +5,8 @@ from space_rubble import *
 class GameLevel():
     def __init__(self):
         self.font = pygame.font.SysFont("georgia", 64, True)
-        self.max_rubble = 5
-        self.rubble_count = 0
+        self.max_rubble = 5 # set limit for the amount of asteroids initially appearing on screen (level 1)
+        self.rubble_count = 0 
         self.level = 1
         self.speed = 1.5        
 

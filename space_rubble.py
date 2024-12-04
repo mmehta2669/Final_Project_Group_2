@@ -19,8 +19,8 @@ class Space_rubble(pygame.sprite.Sprite):
         self.start_right = random.randint(screen_width + 10, screen_width + 50)
         self.start_bottom = random.randint(screen_height + 10, screen_height + 50)
 
-        self.start_top_bottom = (self.start_left_or_top, self.start_bottom)
-        self.start_left_right = (self.start_left_or_top, self.start_right)
+        self.start_top_bottom = (self.start_left_or_top, self.start_bottom) # create list for top/bottom start points
+        self.start_left_right = (self.start_left_or_top, self.start_right) # create list for left/right start points
 
         self.start_horizontal = 0
         self.start_vertical = 0
@@ -114,6 +114,7 @@ class Space_rubble(pygame.sprite.Sprite):
                     )
                 )
 
+    # remove rubble item from screen
     def hit(self):
         self.kill()
 

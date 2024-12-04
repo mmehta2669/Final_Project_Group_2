@@ -115,7 +115,7 @@ class App:
                     self.combo += 1 
                     if self.combo > 0 and self.combo % 10 == 0:
                         self.score.multiplier += 1
-                    self.score.increse_score() #increse score
+                    self.score.increse_score() #increase score
 
                     # Create and add an explosion at the asteroid's position
                     explosion = Explosion(asteroid.rect.center)
@@ -137,12 +137,12 @@ class App:
 
         self.player.draw()
 
-        # asteroid/player collision detectioon
+        # asteroid/player collision detection
         if pygame.sprite.spritecollide(self.player, self.rubble, False, pygame.sprite.collide_mask):
             explosion = Explosion(self.player.rect.center)
             self.explosions.add(explosion)
-            self.player.rect.center  = (self.width / 2, self.height / 2)
-            self.lives.remove_life()
+            self.player.rect.center  = (self.width / 2, self.height / 2) # reset ship to center screen
+            self.lives.remove_life() # remove life icon from top right of game screen
             #reset the multiplier
             self.score.reset_multiplier()
             self.combo = 0  
