@@ -39,9 +39,10 @@ classDiagram
  class space_rubble {
   self
   +__init__(self)
-  +update(self)
   +get_speed(self)
   +increase_speed(self)
+  +update(self)
+  +hit(self)
 }
 
  class bullet {
